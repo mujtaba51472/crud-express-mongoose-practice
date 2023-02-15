@@ -1,12 +1,11 @@
 import userModel from "../models/userSchema.js";
 
 export const addUser = async (req, res) => {
-  const user = req.body;
-  const newUser = new userModel(user);
   try {
+    const user = req.body;
+    const newUser = new userModel(user);
     const resss = await newUser.save();
-    res.status(201).json(newUser);
-    console.log("res", resss);
+    res.status("200", resss);
   } catch (error) {
     console.log(error);
   }
@@ -14,9 +13,9 @@ export const addUser = async (req, res) => {
 };
 
 export const getUser = async (req, res) => {
-  const user = await userModel.find();
   // console.log("userbck", user);
   try {
+    const user = await userModel.find();
     res.status(200).json(user);
   } catch (error) {
     console.log(error);
@@ -27,8 +26,8 @@ export const getUser = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
   // console.log("iddd", req.params.id);
-  const result = await userModel.findByIdAndDelete(req.params.id);
   try {
+    const result = await userModel.findByIdAndDelete(req.params.id);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);
@@ -38,16 +37,17 @@ export const deleteUser = async (req, res) => {
 // edit
 
 export const editUser = async (req, res) => {
-  console.log('reddd' , req.body)
+  console.log("reddd", req.body);
   try {
-    const result = await userModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const result = await userModel.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
     res.status(200).json(result);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Unable to update user data" });
   }
 };
-
 
 // get single user
 
